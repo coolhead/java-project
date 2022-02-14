@@ -9,7 +9,27 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    steps:
+    steps:         
+      - name: execute Curl in this runner
+        env:
+          pat: "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"
+          base64AuthInfo: '$pat | base64 -e'
+
+        run: |
+          curl --fail --request GET --header "Authorization: Bearer $base64AuthInfo" --url "https://google.com"
+
+      - name: using curl by second method        
+        run: |
+          curl --request GET \
+          --url https://google.com \
+          --header 'authorization: Bearer $base64AuthInfo' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Curling Google.com from GitHub Runner",
+            "body": "Curl usage from github runner done successfully."
+            }' \
+          --fail
+          
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -35,23 +55,3 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=coolhead_java-project
 
-         
-      - name: execute Curl in this runner
-        env:
-          pat: "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"
-          base64AuthInfo: '$pat | base64 -e'
-
-        run: |
-          curl --fail --request GET --header "Authorization: Bearer $base64AuthInfo" --url "https://google.com"
-
-      - name: using curl by second method        
-        run: |
-          curl --request GET \
-          --url https://google.com \
-          --header 'authorization: Bearer $base64AuthInfo' \
-          --header 'content-type: application/json' \
-          --data '{
-            "title": "Curling Google.com from GitHub Runner",
-            "body": "Curl usage from github runner done successfully."
-            }' \
-          --fail
