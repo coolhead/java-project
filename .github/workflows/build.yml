@@ -35,15 +35,23 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=coolhead_java-project
 
-      - name: curl
-        uses: wei/curl@v1
-        with:
-         args: -X POST https:/httpbin.org/post
          
-      - name: using curl
+      - name: execute Curl in this runner
         env:
           pat: "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"
           base64AuthInfo: '$pat | base64 -e'
 
         run: |
           curl --fail --request GET --header "Authorization: Bearer $base64AuthInfo" --url "https://google.com"
+
+      - name: using curl by second method        
+        run: |
+          curl --request GET \
+          --url https://google.com \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Curling Google.com from GitHub Runner",
+            "body": "Curl usage from github runner done successfully."
+            }' \
+          --fail
