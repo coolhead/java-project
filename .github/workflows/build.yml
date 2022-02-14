@@ -48,7 +48,7 @@ jobs:
         run: |
           curl --request GET \
           --url https://google.com \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'authorization: Bearer $base64AuthInfo' \
           --header 'content-type: application/json' \
           --data '{
             "title": "Curling Google.com from GitHub Runner",
