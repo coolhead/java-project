@@ -38,4 +38,4 @@ jobs:
       - name: curl
         uses: wei/curl@v1
         with:
-         args: -X POST https:/google.com/post
+         args: -X POST https:/httpbin.org/post
