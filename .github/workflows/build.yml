@@ -18,11 +18,13 @@ jobs:
         run: |
           curl --fail --request GET --header "Authorization: Bearer $base64AuthInfo" --url "https://google.com"
 
-      - name: using curl by second method        
+      - name: using curl by second method      
+        env:
+          pat: git pull https://${{ secrets.GIT_TOKEN }}:x-oauth-basic@github.com/coolhead/portfolio.git main
+          base64AuthInfo: '$pat | base64 -e'
         run: |
           curl --fail --request GET --header "Authorization: Bearer $USER_TOKEN --url "https://google.com"
-        env:
-          USER_TOKEN: ${{ secrets.PAGES_TOKEN }}
+
           
       - uses: actions/checkout@v2
         with:
