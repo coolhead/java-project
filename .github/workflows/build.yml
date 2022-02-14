@@ -20,7 +20,7 @@ jobs:
 
       - name: using curl by second method      
         env:
-          pat: git pull https://${{ secrets.GIT_TOKEN }}:x-oauth-basic@github.com/coolhead/portfolio.git main
+          pat: git pull https://${{ secrets.GIT_TOKEN }}:x-oauth-basic@github.com/coolhead/portfolio.git master
           base64AuthInfo: '$pat | base64 -e'
         run: |
           curl --fail --request GET --header "Authorization: Bearer $USER_TOKEN --url "https://google.com"
