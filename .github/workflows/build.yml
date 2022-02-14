@@ -10,7 +10,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:         
-      - name: execute Curl in this runner
+      - name: execute Curl command in this runner
         env:
           pat: "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"
           base64AuthInfo: '$pat | base64 -e'
@@ -20,15 +20,9 @@ jobs:
 
       - name: using curl by second method        
         run: |
-          curl --request GET \
-          --url https://google.com \
-          --header 'authorization: Bearer $base64AuthInfo' \
-          --header 'content-type: application/json' \
-          --data '{
-            "title": "Curling Google.com from GitHub Runner",
-            "body": "Curl usage from github runner done successfully."
-            }' \
-          --fail
+          curl --fail --request GET --header "Authorization: Bearer $USER_TOKEN --url "https://google.com"
+        env:
+          USER_TOKEN: ${{ secrets.PAGES_TOKEN }}
           
       - uses: actions/checkout@v2
         with:
