@@ -10,21 +10,13 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:         
-      - name: execute Curl command in this runner
+      - name: execute CURL COMMAND IN THIS RUNNER
         env:
           pat: "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"
           base64AuthInfo: '$pat | base64 -e'
 
         run: |
           curl --fail --request GET --header "Authorization: Bearer $base64AuthInfo" --url "https://google.com"
-
-      - name: using curl by second method      
-        env:
-          pat: git pull https://${{ secrets.GIT_TOKEN }}:x-oauth-basic@github.com/coolhead/portfolio.git master
-          base64AuthInfo: '$pat | base64 -e'
-        run: |
-          curl --fail --request GET --header "Authorization: Bearer $USER_TOKEN --url "https://google.com"
-
           
       - uses: actions/checkout@v2
         with:
